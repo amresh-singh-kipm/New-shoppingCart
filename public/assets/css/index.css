@@ -1,0 +1,44 @@
+.nav {
+  justify-content: space-between;
+  display: flex;
+  font-size: 25px;
+  background-color: aqua;
+  width: 100%;
+}
+.nav-item {
+  color: rgb(14, 138, 247);
+  padding: 10px 0px;
+}
+.nav-title {
+  display: flex;
+  align-items: flex-start;
+  font-size: 35px;
+  padding: 5px 0px 0px 0px;
+}
+.form {
+  margin: 100px 300px 0px;
+  background: whitesmoke;
+  border-radius: 20px;
+  padding: 50px 50px;
+}
+.signin-button {
+  margin: 10px 0px 0px 170px;
+  font-weight: 400;
+  font-size: 25px;
+  background: rgb(14, 138, 247);
+  border-radius: 6px;
+}
+.side-panel{
+  padding: 00px 0px;
+  display: grid;
+  text-align: center;
+  margin-top: 40px;
+  background-color: rgb(232, 181, 245);
+  
+}
+.side-panel-item {
+  font-size: 30px;
+  font-family: cursive;
+	margin: 10px 0px;
+  
+}
