@@ -1,19 +1,45 @@
 export const signup = (data)=>{
-  console.log("second")
-fetch("https://merncomm.herokuapp.com/api/signup",{
+ 
+return fetch("https://merncomm.herokuapp.com/api/signup",{
     method :'POST',
     headers:{
-        Accept:"Appliction/json",
-        "content-type":"Appliction/json"
+        Accept:"application/json",
+        "Content-Type":"application/json"
     },
     body:JSON.stringify(data),
-}).then((item)=>console.log("data is 1ssent to API",item))
+}).then((data)=>data.json())
+.catch((err)=>console.log(err))
 }
 
-export const signin = () =>{
-    
-    console.log("HEllo")
-    fetch("https://merncomm.herokuapp.com/api/signin")
-    .then(resp=>resp.json())
-    .then((data)=>console.log("data is fetch from API"))
+export const signin = (data) =>{   
+ return fetch("https://merncomm.herokuapp.com/api/signin",{
+    method:'POST',
+    headers:{
+        Accept:'application/json',
+        "Content-Type": "application/json"
+    },
+    body:JSON.stringify(data),
+ }).then((data)=>data.json())
+ .catch((err)=>console.log(err))
 }
+
+export const getData = (data) =>{
+    return fetch("https://merncomm.herokuapp.com/api/products")
+    .then((data)=>data.json())
+    .catch((err)=>console.log(err))
+}
+
+export const createData = (data) =>{
+    return fetch("https://merncomm.herokuapp.com/api/category/create",{
+        method:'POST',
+        headers:{
+            Accept:"application/json",
+            "Content-Type": "application/json"
+        },
+        body:JSON.stringify(data)
+    })
+    .then((data)=>data.json())
+    .catch((err)=>console.log(err))
+}
+
+
