@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { signup } from "../Helpers/AuthHelper";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const [inputValue, setInputValue] = useState({
@@ -13,7 +13,7 @@ function Signup() {
     email: "",
     password: "",
   });
-let navigate = useNavigate();
+  let navigate = useNavigate();
   //Validation for Signup form
 
   let handleValidation = () => {
@@ -33,7 +33,7 @@ let navigate = useNavigate();
 
     if (!inputValue.email.trim()) {
       message.email = "Email is required";
-    } else{
+    } else {
       message.email = "";
     }
 
@@ -45,18 +45,15 @@ let navigate = useNavigate();
       message.password = "";
     }
 
-    if(!message.name && !message.email && !message.password.trim())
-   {
-  navigate('/signin')
-   }else{
-    console.log("Error are present")
-   } 
+    if (!message.name && !message.email && !message.password.trim()) {
+      navigate("/signin");
+    } else {
+      console.log("Error are present");
+    }
     setValidation(message);
-   
   };
 
-// validation end here for signup form
-
+  // validation end here for signup form
 
   //function for handling the input field
 
@@ -74,50 +71,52 @@ let navigate = useNavigate();
   };
 
   return (
-    <div className="container">
-      <form className="form">
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            className="form-control"
-            value={inputValue.name}
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
-        {validation?.name && validation?.name}
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            className="form-control"
-            value={inputValue.email}
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
-        {validation?.email && validation?.email}
-        <div className="forn-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            className="form-control"
-            value={inputValue.password}
-            onChange={(e) => handleChange(e)}
-          />
-          <br /> {validation?.password && validation?.password}
-        </div>
+    <div className="fluid-container">
+      <div className="container">
+        <form className="form-signout">
+          <div className="form-group">
+            <label className="text-light" htmlFor="name">Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              className="form-control"
+              value={inputValue.name}
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
+          {validation?.name && validation?.name}
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="text"
+              name="email"
+              id="email"
+              className="form-control"
+              value={inputValue.email}
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
+          {validation?.email && validation?.email}
+          <div className="forn-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              className="form-control"
+              value={inputValue.password}
+              onChange={(e) => handleChange(e)}
+            />
+            <br /> {validation?.password && validation?.password}
+          </div>
 
-        <button className="signin-button" onClick={handleSubmit}>
-          Signup
-        </button>
-      </form>
-      {JSON.stringify(inputValue)}
+          <button className="signin-button" onClick={handleSubmit}>
+            Signup
+          </button>
+        </form>
+        {JSON.stringify(inputValue)}
+      </div>
     </div>
   );
 }
