@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-
+import React from "react";
+ import { NavLink } from "react-router-dom";
 function Dashboard() {
   return (
     <div className="fluid-container">
@@ -9,15 +9,15 @@ function Dashboard() {
             <div className="page-content">
               <div className="side-panel">
                 <span className="home-item">User Dashboard</span>
-                <a href="/dashboard/createcategory" className="side-panel-item">
+                <NavLink to="/createcategory" className="side-panel-item">
                   Create Category
-                </a>
-                <a href="/dashboard/createproduct" className="side-panel-item">
+                </NavLink>
+                <NavLink to="/createproduct" className="side-panel-item">
                   Create Product
-                </a>
-                <a href="/dashboard/manageproduct" className="side-panel-item">
+                </NavLink>
+                <NavLink to="/manageproduct" className="side-panel-item">
                   Manage Product
-                </a>
+                </NavLink>
               </div>
             </div>
           </div>

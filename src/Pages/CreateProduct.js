@@ -1,44 +1,75 @@
 import React, { useState, useEffect } from "react";
 import Dashboard from "./Dashboard";
-import { getCategory } from "../Helpers/AuthHelper";
-import axios from "axios";
+import { getCategory } from "../Helpers/CategoryAuthApi/CategoryAuthApi";
+import { createproduct } from "../Helpers/ProductAuthApi/ProductApiHelper";
 
 function CreateProduct() {
-  let userId = localStorage.getItem("userId");
-  let token = localStorage.getItem("token");
-  const [inputValue, setInputValue] = useState({
+  const defaultValue = {
     category: "",
     name: "",
     description: "",
     price: "",
     stock: "",
-  });
+  };
+  const [inputValue, setInputValue] = useState(defaultValue);
   const [categories, setCategories] = useState(null);
-
+  const[errormsg,setErrorMsg] = useState(defaultValue);
   let handleChange = (e) => {
-    // const value = name === "image"? e.target.files[0] : e.target.value;
-    // formData.set({ [name]: value });
     const { name, value } = e.target;
     setInputValue({ ...inputValue, [name]: value });
   };
+  let validation = () =>{
+    let message = {...errormsg}
+    if(!inputValue.name.trim()){
+      message.name="Please enter name ";
+    }else{
+      message.name="";
+    }
+    if(!inputValue.category.trim()){
+      message.category="Please enter category ";
+    }else{
+      message.category="";
+    }
+    if(!inputValue.description.trim()){
+      message.description="Please enter description ";
+    }else{
+      message.description="";
+    }
+    if(!inputValue.price.trim()){
+      message.price="Please enter price ";
+    }else{
+      message.price="";
+    }
+    if(!inputValue.stock.trim()){
+      message.stock="Please enter stock ";
+    }else{
+      message.stock="";
+    }
+    return message;
+  }
+
+
+
   let handleSubmit = (e) => {
     e.preventDefault();
-    submit(inputValue);
+    setErrorMsg(validation());
+    createproduct(inputValue);
     console.log();
+    setInputValue(defaultValue);
   };
-  let submit = () => {
-    let url = `https://merncomm.herokuapp.com/api/product/create/${userId}`;
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    axios
-      .post(url, inputValue, config)
-      .then((resp) => console.log(resp))
-      .catch((err) => console.log(err));
-  };
+  // let submit = () => {
+  //   let url = `https://merncomm.herokuapp.com/api/product/create/${userId}`;
+  //   const config = {
+  //     headers: {
+  //       "content-type": "multipart/form-data",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   };
+  //   axios
+  //     .post(url, inputValue, config)
+  //     .then((resp) => alert("Product is created Successfully"))
+  //     .catch((err) => alert(err));
+  // };
 
   useEffect(() => {
     getCategory()
@@ -65,17 +96,10 @@ function CreateProduct() {
                     placeholder="Name"
                     value={inputValue.name}
                     onChange={(e) => handleChange(e)}
-                  />
+                  />  
                 </div>
+                {errormsg.name &&(<p className="alert alert-danger">{errormsg.name}</p>)}
                 <div className="form-group">
-                  {/* <input
-                    type="text"
-                    name="category"
-                    className="form-control"
-                    placeholder="category"
-                    value={inputValue.category}
-                    onChange={(e) => handleChange(e)}
-                  /> */}
                   <select
                     className="form-control"
                     placeholder="Category"
@@ -90,6 +114,7 @@ function CreateProduct() {
                       ))}
                   </select>
                 </div>
+                {errormsg.category &&(<p className="alert alert-danger">{errormsg.category}</p>)}
                 <div className="form-group">
                   <input
                     type="text"
@@ -100,6 +125,7 @@ function CreateProduct() {
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
+                {errormsg.description &&(<p className="alert alert-danger">{errormsg.description}</p>)}
                 <div className="form-group">
                   <input
                     type="text"
@@ -111,6 +137,7 @@ function CreateProduct() {
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
+                {errormsg.price &&(<p className="alert alert-danger">{errormsg.price}</p>)}
                 <div className="form-group">
                   <input
                     type="text"
@@ -122,17 +149,8 @@ function CreateProduct() {
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
-                {/* <div className="form-group">
-              <label htmlFor="image">Image</label>
-              <input
-                type="file"
-                name="image"
-                id="image"
-                className="form-control"
-                onChange={(e) => handleImage(e)}
-              />
-            </div> */}
-                <button onClick={handleSubmit}>Add Product</button>
+                {errormsg.stock &&(<p className="alert alert-danger">{errormsg.stock}</p>)}
+                <button className="btn btn-success" onClick={ handleSubmit}>Add Product</button>
               </form>
             </div>
           </div>

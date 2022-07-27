@@ -14,6 +14,7 @@
   color: rgb(14, 138, 247);
   padding: 10px 0px;
   font-family: "Courier New", Courier, monospace;
+  text-decoration: none !important;
 }
 .nav-title {
   display: flex;
@@ -79,14 +80,13 @@
   border-radius: 4px;
   font-family: "Courier New", Courier, monospace;
 }
-.cart-button {
+.btn.btn-block.btn-success {
   color: aliceblue;
-  display: grid;
-  text-align: center;
   font-size: 20px;
-  background-color: #28a745;
-  margin-bottom: 10px;
-  font-family: "Courier New", Courier, monospace;
+  margin-bottom: 5px;
+  font-family: "Courier New", Courier, monospace ;
+  border-radius: 0%;
+  background-color: #343a40;
 }
 .side-panel {
   margin-bottom: 555px;
@@ -101,6 +101,7 @@
   font-family: "Courier New", Courier, monospace;
   border-bottom: 1px solid black;
   padding: 10px 0px;
+  text-decoration: none !important;
 }
 .footer {
   width: 100%;

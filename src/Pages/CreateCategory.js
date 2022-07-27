@@ -1,16 +1,34 @@
 import React, { useState } from "react";
-import { createCategory } from "../Helpers/AuthHelper";
+import { createCategory } from "../Helpers/CategoryAuthApi/CategoryAuthApi";
 import Dashboard from "./Dashboard";
 
-function Createproduct() {
+function CreateCategory() {
   const [inputValue, setInputValue] = useState({
     name: "",
   });
+  const [errorMsg, setErrorMsg] = useState(null);
 
-  let createProduct = (e) => {
+  let onSubmit = (e) => {
     e.preventDefault();
-    createCategory(inputValue);
+    validation();
+    createCategory(inputValue)
+    .then((data)=>{
+      if(data?.error){
+        alert("dataerror")
+        return
+      }else{
+        alert("hello")
+      }
+    })
+    .catch((error)=>alert(error))
     console.log("data is sent", inputValue);
+  };
+  let validation = () => {
+    if (!inputValue.name.trim()) {
+      setErrorMsg("Provide a category");
+    } else {
+      setErrorMsg("");
+    }
   };
 
   let handleChange = (e) => {
@@ -39,10 +57,10 @@ function Createproduct() {
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
-                <button
+                {errorMsg && <p className="alert alert-danger">{errorMsg}</p>}
+                <button className="btn btn-success"
                   type="submit"
-                  onClick={createProduct}
-                  className="btn btn-outline-success mb-3"
+                  onClick={onSubmit}
                 >
                   Add Category
                 </button>
@@ -55,4 +73,4 @@ function Createproduct() {
   );
 }
 
-export default Createproduct;
+export default CreateCategory;

@@ -1,13 +1,34 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AppContext } from "./Context/AppContext";
 function Navbar() {
+ let isLogin =useContext(AppContext)
+
+  let handleLogout = () =>{
+    localStorage.clear();
+    isLogin.setIssubmit(false);
+  }
+  
   return (
     <div className="nav">
       <span className="nav-title">E-commerce</span>
       <NavLink to="/" className="nav-item">
         Home
       </NavLink>
-      <NavLink to="/signin" className="nav-item">
+      {isLogin?.isSubmit ?<><NavLink to="/dashboard" className="nav-item">
+        Dashboard
+      </NavLink>
+      <NavLink to="/signin" className="nav-item" onClick={handleLogout}>
+        Logout
+      </NavLink>
+      </> 
+      :<> <NavLink to="/signin" className="nav-item">
+        Signin
+      </NavLink>
+      <NavLink to="/signup" className="nav-item">
+        Signup
+      </NavLink></>}
+      {/* <NavLink to="/signin" className="nav-item">
         Signin
       </NavLink>
       <NavLink to="/signup" className="nav-item">
@@ -15,7 +36,7 @@ function Navbar() {
       </NavLink>
       <NavLink to="/dashboard" className="nav-item">
         Dashboard
-      </NavLink>
+      </NavLink> */}
     </div>
   );
 }

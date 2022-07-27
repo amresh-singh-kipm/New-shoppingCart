@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { getData } from "../Helpers/AuthHelper";
+import React, { useContext, useEffect } from "react";
+import {  getProducts } from "../Helpers/ProductAuthApi/ProductApiHelper";
 import { AppContext } from "../Components/Context/AppContext";
 
 function Home() {
-  const [productId, setProductId] = useState([]);
   const dataValue = useContext(AppContext);
   useEffect(() => {
-    getData()
+    getProducts()
       .then((data) => {
         dataValue.setProductValue(data);
       })
@@ -14,17 +13,6 @@ function Home() {
     }, []);
     
     console.log("dashboard data", dataValue?.productValue);
-  useEffect(() => {
-    // if(dataValue?.productValue?.length>0){
-      dataValue?.productValue?.forEach(element => {
-        console.log(element._id)
-        productId.push(element._id)
-        setProductId([...productId])
-      });
-    // }
-  }, [dataValue])
-  
-  console.log("PRODUCT IDS::",productId);
   return (
     <div className="fluid-container">
       <div className="row">
@@ -44,7 +32,7 @@ function Home() {
                 <span className="home-item-desc"> {item.description} </span>
                 <span className="home-item-price"> ${item.price}</span>
                 <br />
-                <span className="cart-button">Add to Cart</span>
+                <button class="btn btn-block btn-success">Add to Cart</button>
               </div>
             </>
           );

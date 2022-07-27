@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import Dashboard from "./Dashboard";
 import { AppContext } from "../Components/Context/AppContext";
-import { deleteProduct, getData } from "../Helpers/AuthHelper";
+import { deleteProduct,  getProducts } from "../Helpers/ProductAuthApi/ProductApiHelper";
+import { useNavigate } from "react-router-dom";
 
 function Manageproduct() {
-  let userId = localStorage.getItem("userId");
+let navigate = useNavigate();
   const dataValue = useContext(AppContext);
   let productData = () => {
-    getData()
+    getProducts()
       .then((data) => dataValue.setProductValue(data))
       .catch((err) => console.log(err));
   };
@@ -54,10 +55,10 @@ function Manageproduct() {
                           <td>{item.price}</td>
                           <td>{item.stock}</td>
                           <td>
-                            <button>Update</button>
+                            <button className="btn btn-primary" onClick={()=>{navigate(`/updatedata?id=${item._id}`)}}>Update</button>
                           </td>
                           <td>
-                            <button
+                            <button className="btn btn-danger"
                               onClick={() =>
                                 handleDelete(item._id)
                               }
