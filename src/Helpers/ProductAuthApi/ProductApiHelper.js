@@ -23,7 +23,7 @@ export const getProducts = () => {
       headers:config.headersWithToken,
       body: JSON.stringify(),   
     })
-      .then((resp) => resp.json())
+      .then((resp) => console.log(resp))
       .catch((err) => console.log(err));
   };
   export const getUpdateProduct = (id) => {
@@ -32,13 +32,14 @@ export const getProducts = () => {
       .catch((err) => console.log(err));
   };
   export const updateProduct = (id,name) => {
-    return fetch(`${config.host}${config.products.deleteProduct}/${id}/${userId}`,{
+    return fetch(`${config.host}${config.products.updateProduct}/${id}/${userId}`,{
       method:'PUT',
       headers:config.headersWithFormData,
       body:JSON.stringify(name)
     })
     .then((resp)=>console.log(resp))
     .catch((error)=>console.log(error))
+  };
 
       // let url1 = `${config.host}${config.products.updateProduct}/${id}/${userId}`;
       // let config2 = {
@@ -56,4 +57,4 @@ export const getProducts = () => {
       // })
       //   .then((resp) => resp.json())
       //   .catch((err) => console.log(err));
-    };
+    

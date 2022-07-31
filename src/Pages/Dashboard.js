@@ -12,6 +12,9 @@ function Dashboard() {
                 <NavLink to="/createcategory" className="side-panel-item">
                   Create Category
                 </NavLink>
+                <NavLink to="/managecategory" className="side-panel-item">
+                  Manage Category
+                </NavLink>
                 <NavLink to="/createproduct" className="side-panel-item">
                   Create Product
                 </NavLink>

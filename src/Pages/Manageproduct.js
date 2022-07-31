@@ -26,7 +26,6 @@ let navigate = useNavigate();
       .catch((error) => console.log(error));
      ;
   };
-  console.log("dashboard ", dataValue?.productValue);
   return (
     <div className="fluid-container">
       <div className="container">
@@ -55,7 +54,7 @@ let navigate = useNavigate();
                           <td>{item.price}</td>
                           <td>{item.stock}</td>
                           <td>
-                            <button className="btn btn-primary" onClick={()=>{navigate(`/updatedata?id=${item._id}`)}}>Update</button>
+                            <button className="btn btn-primary" onClick={()=>{navigate(`/createproduct?id=${item._id}`)}}>Update</button>
                           </td>
                           <td>
                             <button className="btn btn-danger"

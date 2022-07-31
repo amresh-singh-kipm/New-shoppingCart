@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Dashboard from "./Dashboard";
 import { getCategory } from "../Helpers/CategoryAuthApi/CategoryAuthApi";
-import { createproduct } from "../Helpers/ProductAuthApi/ProductApiHelper";
+import { createproduct, getUpdateProduct, updateProduct } from "../Helpers/ProductAuthApi/ProductApiHelper";
+import { useLocation } from "react-router-dom";
 
 function CreateProduct() {
+let location = useLocation();
+let search = new URLSearchParams(location.search)
+let id = search.get("id")
+  // to set all field empty after submit
   const defaultValue = {
     category: "",
     name: "",
@@ -11,67 +16,100 @@ function CreateProduct() {
     price: "",
     stock: "",
   };
+
   const [inputValue, setInputValue] = useState(defaultValue);
   const [categories, setCategories] = useState(null);
-  const[errormsg,setErrorMsg] = useState(defaultValue);
+  const [errormsg, setErrorMsg] = useState(defaultValue);
+  const [image, setImage] = useState(null);
+
   let handleChange = (e) => {
     const { name, value } = e.target;
     setInputValue({ ...inputValue, [name]: value });
   };
-  let validation = () =>{
-    let message = {...errormsg}
-    if(!inputValue.name.trim()){
-      message.name="Please enter name ";
-    }else{
-      message.name="";
+  
+  useEffect(() => {
+   if(id){
+    getUpdateProduct(id)
+    .then((data)=>{
+      setInputValue({
+        category:data?.category?._id ?? "",
+        name:data?.name ??"",
+        description:data?.description ?? "",
+        price: data?.price ?? "",
+        stock:data.stock?? "",
+      })
+    })
+   }
+  }, [])
+  
+
+  let handleImage = (e) => {
+    setImage(e.target.files[0]);
+  };
+  console.log("Photo", image);
+  let validation = () => {
+    let message = { ...errormsg };
+    if (!inputValue.name.trim()) {
+      message.name="please enter name";
+    } else {
+      message.name = "";
     }
-    if(!inputValue.category.trim()){
-      message.category="Please enter category ";
-    }else{
-      message.category="";
+    if (!inputValue.category.trim()) {
+      message.category = "Please enter category ";
+    } else {
+      message.category = "";
     }
-    if(!inputValue.description.trim()){
-      message.description="Please enter description ";
-    }else{
-      message.description="";
+    if (!inputValue.description.trim()) {
+      message.description = "Please enter description ";
+    } else {
+      message.description = "";
     }
-    if(!inputValue.price.trim()){
-      message.price="Please enter price ";
-    }else{
-      message.price="";
+    if (!inputValue.price.trim()) {
+      message.price = "Please enter price ";
+    } else {
+      message.price = "";
     }
-    if(!inputValue.stock.trim()){
-      message.stock="Please enter stock ";
-    }else{
-      message.stock="";
+    if (!inputValue.stock.trim()) {
+      message.stock = "Please enter stock ";
+    } else {
+      message.stock = "";
     }
     return message;
-  }
+  };
 
-
-
+  let formData = new FormData();
+  console.log("formData is :", formData);
   let handleSubmit = (e) => {
     e.preventDefault();
+    if(id){
+      updateProduct(id,inputValue)
+    }else{ formData.append("photo", image);
+    formData.append("category", inputValue.category);
+    formData.append("name", inputValue.name);
+    formData.append("description", inputValue.description);
+    formData.append("price", inputValue.price);
+    formData.append("stock", inputValue.stock);
+
     setErrorMsg(validation());
-    createproduct(inputValue);
-    console.log();
+    createproduct(formData);
+
     setInputValue(defaultValue);
+  }
   };
-  // let submit = () => {
-  //   let url = `https://merncomm.herokuapp.com/api/product/create/${userId}`;
-  //   const config = {
-  //     headers: {
-  //       "content-type": "multipart/form-data",
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   };
-  //   axios
-  //     .post(url, inputValue, config)
-  //     .then((resp) => alert("Product is created Successfully"))
-  //     .catch((err) => alert(err));
+  
+  // let str = "Hello there";
+  // let strindex = str.indexOf("e");
+  // // console.log(strindex)
+  // let findIndex = () => {
+  //   for (let index = 0; index < str.length; index++) {
+  //     if (str[index] === str[strindex])
+  //       console.log("Index where e is present :", index);
+  //   }
   // };
 
   useEffect(() => {
+    // uniqueArray();
+    // findIndex();
     getCategory()
       .then((data) => setCategories(data))
       .catch((err) => console.log(err));
@@ -96,9 +134,11 @@ function CreateProduct() {
                     placeholder="Name"
                     value={inputValue.name}
                     onChange={(e) => handleChange(e)}
-                  />  
+                  />
                 </div>
-                {errormsg.name &&(<p className="alert alert-danger">{errormsg.name}</p>)}
+                {errormsg.name && (
+                  <p className="alert alert-danger">{errormsg.name}</p>
+                )}
                 <div className="form-group">
                   <select
                     className="form-control"
@@ -114,7 +154,9 @@ function CreateProduct() {
                       ))}
                   </select>
                 </div>
-                {errormsg.category &&(<p className="alert alert-danger">{errormsg.category}</p>)}
+                {errormsg.category && (
+                  <p className="alert alert-danger">{errormsg.category}</p>
+                )}
                 <div className="form-group">
                   <input
                     type="text"
@@ -125,7 +167,9 @@ function CreateProduct() {
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
-                {errormsg.description &&(<p className="alert alert-danger">{errormsg.description}</p>)}
+                {errormsg.description && (
+                  <p className="alert alert-danger">{errormsg.description}</p>
+                )}
                 <div className="form-group">
                   <input
                     type="text"
@@ -137,7 +181,9 @@ function CreateProduct() {
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
-                {errormsg.price &&(<p className="alert alert-danger">{errormsg.price}</p>)}
+                {errormsg.price && (
+                  <p className="alert alert-danger">{errormsg.price}</p>
+                )}
                 <div className="form-group">
                   <input
                     type="text"
@@ -149,8 +195,21 @@ function CreateProduct() {
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
-                {errormsg.stock &&(<p className="alert alert-danger">{errormsg.stock}</p>)}
-                <button className="btn btn-success" onClick={ handleSubmit}>Add Product</button>
+                {errormsg.stock && (
+                  <p className="alert alert-danger">{errormsg.stock}</p>
+                )}
+                <div className="form-group">
+                  <input
+                    type="file"
+                    name="images"
+                    className="form-control"
+                    placeholder="photo"
+                    onChange={(e) => handleImage(e)}
+                  />
+                </div>
+                <button className="btn btn-success" onClick={handleSubmit}>
+                  Add Product
+                </button>
               </form>
             </div>
           </div>

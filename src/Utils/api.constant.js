@@ -27,10 +27,13 @@ export const config ={
         createProduct:"/product/create",
         deleteProduct:"/product",
         updateProduct:"/product",
+        getPhoto:"/product/photo"
     },
     category:{
         getCategory:"/categories",
         createCategory:"/category/create",
+        deleteCategory:"/category",
+        updateCategory:"/category",
     }
     
 }

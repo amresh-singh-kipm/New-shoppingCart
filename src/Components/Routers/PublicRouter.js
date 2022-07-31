@@ -1,16 +1,18 @@
   import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import CreateCategory from '../../Pages/CreateCategory';
-import CreateProduct from '../../Pages/CreateProduct';
-import Dashboard from '../../Pages/Dashboard';
-import Home from '../../Pages/Home';
-import Manageproduct from '../../Pages/Manageproduct';
+import Navbar from '../Navbar';
 import Signin from '../../Pages/Signin';
 import Signup from '../../Pages/Signup';
+import Home from '../../Pages/Home';
+import Dashboard from '../../Pages/Dashboard';
+import CreateCategory from '../../Pages/CreateCategory';
+import ManageCategory from '../../Pages/ManageCategory';
+import CreateProduct from '../../Pages/CreateProduct';
+import Manageproduct from '../../Pages/Manageproduct';
 import UpdateData from '../../Pages/UpdateData';
-import Footer from '../Footer';
-import Navbar from '../Navbar';
 import Privateroute from './Privateroute';
+import Footer from '../Footer';
+import UpdateCategory from '../../Pages/UpdateCategory';
 
   function PublicRouter() {
     return (
@@ -26,6 +28,8 @@ import Privateroute from './Privateroute';
               <Route exact path="/createproduct" element={<Privateroute><CreateProduct/></Privateroute>}/>
               <Route exact path="/manageproduct" element={<Privateroute><Manageproduct/></Privateroute>}/>
               <Route exact path="/updatedata" element={<Privateroute><UpdateData/></Privateroute>} />
+              <Route exact path="/updatecategory" element={<UpdateCategory/>}/>
+              <Route exact path ="/managecategory" element={<ManageCategory/>}/>
             </Routes>
             <Footer/>
           </Router>

@@ -1,13 +1,14 @@
-import React, { useContext, useState,useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { signin } from "../Helpers/AuthHelper";
 import { AppContext } from "../Components/Context/AppContext";
-import {  useNavigate, } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Signin() {
   const [inputValue, setInputValue] = useState({ email: "", password: "" });
   const context = useContext(AppContext);
- let navigate = useNavigate();
-let handleSubmit = (e) => {
+  let navigate = useNavigate();
+
+  let handleSubmit = (e) => {
     e.preventDefault();
     signin(inputValue)
       .then((data) => {
@@ -26,21 +27,24 @@ let handleSubmit = (e) => {
     console.log("data", context.isSubmit);
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInputValue({ ...inputValue, [name]: value });
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setInputValue({ ...inputValue, [name]: value });
+  // };
+
+  const handleChange2 = (name) => (e) => {
+    setInputValue({ ...inputValue, [name]: e.target.value });
   };
 
-  let data = localStorage.getItem("token")
+  let data = localStorage.getItem("token");
   useEffect(() => {
-    if(data){
-      context.setIsSubmit(true)
-      navigate("/dashboard")
-    }else{
-      navigate("/signin")
+    if (data) {
+      context.setIsSubmit(true);
+      navigate("/dashboard");
+    } else {
+      navigate("/signin");
     }
-
-  }, [data,navigate,context])
+  }, [data, navigate, context]);
 
   return (
     <div className="fluid-container">
@@ -54,25 +58,28 @@ let handleSubmit = (e) => {
               id="email"
               className="form-control"
               value={inputValue.email}
-              onChange={(e) => handleChange(e)}
+              // onChange={(e) => handleChange(e)}
+              onChange={handleChange2("email")}
             />
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
-              type="text"
+              type="password"
               name="password"
               id="password"
               className="form-control"
               value={inputValue.password}
-              onChange={(e) => handleChange(e)}
+              // onChange={(e) => handleChange(e)}
+              onChange={handleChange2("password")}
             />
           </div>
           <button className="signin-button" onClick={handleSubmit}>
             Signin
           </button>
-        </form>
+          <br/>
         {JSON.stringify(inputValue)}
+        </form>
       </div>
     </div>
   );
