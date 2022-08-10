@@ -1,7 +1,9 @@
 .fluid-container {
   background-color: #343a40;
   width: 100%;
+  min-height: 857px;
 }
+
 
 .nav {
   justify-content: space-between;
@@ -24,13 +26,13 @@
   font-family: "Courier New", Courier, monospace;
 }
 .form-signin {
-  margin: 250px 300px;
+  margin: 250px 300px 0px 300px;
   background: whitesmoke;
   border-radius: 20px;
   padding: 50px 50px;
 }
 .form-signout {
-  margin: 211px 300px;
+  margin: 211px 300px 0px 300px;
   background: whitesmoke;
   border-radius: 20px;
   padding: 50px 50px;
@@ -41,6 +43,7 @@
   font-size: 25px;
   background: rgb(14, 138, 247);
   border-radius: 6px;
+  border: 1px solid rgb(14,138,247);
 }
 .col-lg-3 {
   border: 2px solid #6610f2;
@@ -89,7 +92,7 @@
   background-color: #343a40;
 }
 .side-panel {
-  margin-bottom: 555px;
+  /* margin-bottom: 555px; */
   border: 1px solid white;
   display: grid;
   text-align: center;

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { config } from "../../Utils/api.constant";
-let userId = localStorage.getItem("userId");
+import { getUserId } from "../CategoryAuthApi/CategoryAuthApi";
 
 
 export const getProducts = () => {
@@ -9,7 +9,7 @@ export const getProducts = () => {
       .catch((err) => console.log(err));
   };
   export const createproduct = (name) => {
-    let url=`${config.host}${config.products.createProduct}/${userId}`;
+    let url=`${config.host}${config.products.createProduct}/${getUserId()}`;
      let config1 = {
       headers:config.headersWithFormData,
      };
@@ -18,7 +18,7 @@ export const getProducts = () => {
       .catch((err) => console.log(err));
   };
   export const deleteProduct = (id) => {
-    return fetch(`${config.host}${config.products.deleteProduct}/${id}/${userId}`, {
+    return fetch(`${config.host}${config.products.deleteProduct}/${id}/${getUserId()}`, {
       method: "DELETE",
       headers:config.headersWithToken,
       body: JSON.stringify(),   
@@ -32,7 +32,7 @@ export const getProducts = () => {
       .catch((err) => console.log(err));
   };
   export const updateProduct = (id,name) => {
-    return fetch(`${config.host}${config.products.updateProduct}/${id}/${userId}`,{
+    return fetch(`${config.host}${config.products.updateProduct}/${id}/${getUserId()}`,{
       method:'PUT',
       headers:config.headersWithFormData,
       body:JSON.stringify(name)

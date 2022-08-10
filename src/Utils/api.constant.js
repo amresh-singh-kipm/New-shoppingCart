@@ -1,5 +1,9 @@
-let token = localStorage.getItem("token");
-
+// let token = localStorage.getItem("token");
+// let userId = localStorage.getItem("userId")
+export const getToken = () =>{
+    let token = localStorage.getItem("token");
+    return token;
+}
 
 const BASE_URL = 'https://merncomm.herokuapp.com/api'
 
@@ -12,11 +16,11 @@ export const config ={
     headersWithToken:{
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
     },
     headersWithFormData:{
             "content-type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${getToken()}`,
           },
     auth:{
         signin: "/signin",

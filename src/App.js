@@ -4,18 +4,20 @@ import PublicRouter from "./Components/Routers/PublicRouter";
 import { AppContext } from "./Components/Context/AppContext";
 function App() {
   const [isSubmit, setIsSubmit] = useState(false);
+  const id = localStorage.getItem("userId")
   const [productValue, setProductValue] = useState();
   let token = localStorage.getItem("token")
   useEffect(() => {
      if(token){
       setIsSubmit(true)
      }
+    
   }, [])
   return (
    
     
     <AppContext.Provider
-      value={{ isSubmit, setIsSubmit, productValue, setProductValue }}
+      value={{ isSubmit, setIsSubmit, productValue, setProductValue, }}
     >
       <div className="App">
         <header className="App-header">

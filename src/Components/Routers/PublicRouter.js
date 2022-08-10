@@ -13,6 +13,7 @@ import UpdateData from '../../Pages/UpdateData';
 import Privateroute from './Privateroute';
 import Footer from '../Footer';
 import UpdateCategory from '../../Pages/UpdateCategory';
+import Usememo from '../../Pages/Usememo';
 
   function PublicRouter() {
     return (
@@ -20,6 +21,7 @@ import UpdateCategory from '../../Pages/UpdateCategory';
             <Router>
             <Navbar/>
             <Routes>
+              <Route exact path='/memo' element={<Usememo/>}/>
               <Route exact path="/" element={<Home/>} />
               <Route exact path="/signup" element={<Signup/>} />
               <Route exact path="/signin" element={<Signin/>} />

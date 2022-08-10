@@ -5,10 +5,9 @@ function Navbar() {
  let isLogin =useContext(AppContext)
 
   let handleLogout = () =>{
-    localStorage.clear();
-    isLogin.setIssubmit(false);
+  localStorage.clear();  
+    isLogin?.setIsSubmit(false);
   }
-  
   return (
     <div className="nav">
       <span className="nav-title">E-commerce</span>

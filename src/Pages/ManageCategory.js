@@ -4,6 +4,7 @@ import {
   getCategory,
 } from "../Helpers/CategoryAuthApi/CategoryAuthApi";
 import { useNavigate } from "react-router-dom";
+import Dashboard from "./Dashboard";
 
 function ManageCategory() {
   let nagivate = useNavigate();
@@ -30,26 +31,29 @@ function ManageCategory() {
     <div className="fluid-container">
       <div className="container">
         <div className="row">
-          <div className="data">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Category</th>
-                  <th>Update</th>
-                  <th>Delete</th>
-                </tr>
-              </thead>
-              {categories &&
-                categories.map((item, index) => {
-                  return (
-                    <>
-                      <tbody>
-                        <tr id={index}>
+          <div className="col-lg-4 md-6 sm-12">
+            <Dashboard />
+          </div>
+          <div className="col-lg-8 md-6 sm-12">
+            <div className="data">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                {categories &&
+                  categories.map((item, index) => {
+                    return (
+                      <tbody key={index}>
+                        <tr>
                           <td>{item.name}</td>
 
                           <td>
                             <button
-                              className="btn btn-success"
+                              className="btn btn-primary"
                               onClick={() =>
                                 nagivate(`/createcategory?id=${item._id}`)
                               }
@@ -67,10 +71,10 @@ function ManageCategory() {
                           </td>
                         </tr>
                       </tbody>
-                    </>
-                  );
-                })}
-            </table>
+                    );
+                  })}
+              </table>
+            </div>
           </div>
         </div>
       </div>

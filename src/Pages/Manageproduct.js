@@ -1,30 +1,32 @@
 import React, { useContext, useEffect, useState } from "react";
 import Dashboard from "./Dashboard";
 import { AppContext } from "../Components/Context/AppContext";
-import { deleteProduct,  getProducts } from "../Helpers/ProductAuthApi/ProductApiHelper";
+import {
+  deleteProduct,
+  getProducts,
+} from "../Helpers/ProductAuthApi/ProductApiHelper";
 import { useNavigate } from "react-router-dom";
 
 function Manageproduct() {
-let navigate = useNavigate();
+  let navigate = useNavigate();
   const dataValue = useContext(AppContext);
   let productData = () => {
     getProducts()
       .then((data) => dataValue.setProductValue(data))
       .catch((err) => console.log(err));
   };
- const [isDelete, setIsDelete] = useState(false)
+  const [isDelete, setIsDelete] = useState(false);
 
   useEffect(() => {
     productData();
   }, [isDelete]);
-  let handleDelete =  (_id) => {
+  let handleDelete = (_id) => {
     productData();
-   deleteProduct(_id)
+    deleteProduct(_id)
       .then((resp) => {
-        setIsDelete(!isDelete)
+        setIsDelete(!isDelete);
       })
       .catch((error) => console.log(error));
-     ;
   };
   return (
     <div className="fluid-container">
@@ -45,29 +47,33 @@ let navigate = useNavigate();
                     <th>Delete</th>
                   </tr>
                 </thead>
-                {dataValue?.productValue?.map((item) => {
+                {dataValue?.productValue?.map((item, index) => {
                   return (
-                    <>
-                      <tbody>
-                        <tr>
-                          <td>{item.name}</td>
-                          <td>{item.price}</td>
-                          <td>{item.stock}</td>
-                          <td>
-                            <button className="btn btn-primary" onClick={()=>{navigate(`/createproduct?id=${item._id}`)}}>Update</button>
-                          </td>
-                          <td>
-                            <button className="btn btn-danger"
-                              onClick={() =>
-                                handleDelete(item._id)
-                              }
-                            >
-                              Delete
-                            </button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </>
+                    <tbody key={index}>
+                      <tr>
+                        <td>{item.name}</td>
+                        <td>{item.price}</td>
+                        <td>{item.stock}</td>
+                        <td>
+                          <button
+                            className="btn btn-primary"
+                            onClick={() => {
+                              navigate(`/createproduct?id=${item._id}`);
+                            }}
+                          >
+                            Update
+                          </button>
+                        </td>
+                        <td>
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => handleDelete(item._id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
                   );
                 })}
               </table>

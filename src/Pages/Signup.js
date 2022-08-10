@@ -91,7 +91,7 @@ setInputValue({...inputValue,[name]:e.target.value})
               onChange={handleChange1("name")}
             />
           </div>
-          {validation?.name && validation?.name}
+          {validation?.name && <p className="alert alert-danger">{validation?.name}</p>}
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -104,7 +104,7 @@ setInputValue({...inputValue,[name]:e.target.value})
               onChange={handleChange1("email")}
             />
           </div>
-          {validation?.email && validation?.email}
+          {validation?.email &&  <p className="alert alert-danger">{validation?.email}</p>}
           <div className="forn-group">
             <label htmlFor="password">Password</label>
             <input
@@ -116,7 +116,7 @@ setInputValue({...inputValue,[name]:e.target.value})
               // onChange={(e) => handleChange(e)}
               onChange={handleChange1("password")}
             />
-            <br /> {validation?.password && validation?.password}
+            <br /> {validation?.password &&  <p className="alert alert-danger">{validation?.password}</p>}
           </div>
 
           <button className="signin-button" onClick={handleSubmit}>

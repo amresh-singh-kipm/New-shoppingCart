@@ -149,8 +149,8 @@ let id = search.get("id")
                   >
                     <option>Select</option>
                     {categories &&
-                      categories.map((item) => (
-                        <option value={item._id}>{item.name}</option>
+                      categories.map((item,index) => (
+                        <option key={index} value={item._id}>{item.name}</option>
                       ))}
                   </select>
                 </div>
