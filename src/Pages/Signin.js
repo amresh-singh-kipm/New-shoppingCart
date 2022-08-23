@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { signin } from "../Helpers/AuthHelper";
 import { AppContext } from "../Components/Context/AppContext";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Signin() {
   const [inputValue, setInputValue] = useState({ email: "", password: "" });
@@ -11,18 +11,20 @@ function Signin() {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-    validation()
+    validation();
     signin(inputValue)
       .then((data) => {
+        console.log(data)
         if (data?.error) {
           context.setIsSubmit(false);
           return;
-        
+        } else {
+          alert("You hava successfully logged");
         }
-        else{alert("You hava successfully logged")}
         localStorage.setItem("token", data.token);
         localStorage.setItem("userId", data.user._id);
         localStorage.setItem("userName", data.user.name);
+        localStorage.setItem("email",data.user.email)
         context.setIsSubmit(true);
       })
       .catch((err) => console.log(err));
@@ -72,47 +74,75 @@ function Signin() {
   };
 
   return (
-    <div className="fluid-container">
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-12 md-6 sm-12">
-            <form className="form-signin">
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input
-                  type="text"
-                  name="email"
-                  id="email"
-                  className="form-control"
-                  value={inputValue.email}
-                  // onChange={(e) => handleChange(e)}
-                  onChange={handleChange2("email")}
-                />
+    <>
+      <div className="form-container-section">
+        <div className="form-container"></div>
+        <div className="form-container form-section">
+          <div className="row">
+            <div className="col-sm-6 col-md-5 col-lg-5">
+              <div className="form-logo-section">
+                <img src="/assets/images/Watch.jpeg" width="100px" />
+                <div className="form-description-section">
+                  <p>welcome to login page</p>
+                </div>
               </div>
-              {errorMsg?.email&& <p className="alert alert-danger">{errorMsg.email}</p>}
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  className="form-control"
-                  value={inputValue.password}
-                  // onChange={(e) => handleChange(e)}
-                  onChange={handleChange2("password")}
-                />
+            </div>
+            <div className="col-sm-6 col-md-7 col-lg-7">
+              <div className="white">
+                <div className="form-main-section">
+                  <div className="login-form">
+                    <p className="form-title">
+                      <strong>log in </strong>
+                    </p>
+                    <div className="form-group">
+                      <label htmlFor="email">Email</label>
+                      <input
+                        type="text"
+                        name="email"
+                        id="email"
+                        className="form-control"
+                        value={inputValue.email}
+                        onChange={handleChange2("email")}
+                      />
+                    </div>
+                    {errorMsg?.email && (
+                      <p className="alert alert-danger">{errorMsg.email}</p>
+                    )}
+                    <div className="form-group">
+                      <label htmlFor="password">Password</label>
+                      <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        className="form-control"
+                        value={inputValue.password}
+                        onChange={handleChange2("password")}
+                      />
+                      <div className="forget-password">
+                      <span>forget password?</span>
+                    </div>
+                    </div>
+                    
+                    {errorMsg?.password && (
+                      <p className="alert alert-danger">{errorMsg.password}</p>
+                    )}
+                    <button
+                      className="btn btn-success"
+                      onClick={handleSubmit}
+                    >
+                      Signin
+                    </button>
+                    <div className="form-footer">
+                      <span>Need a account? <NavLink to="/signup">SignUp</NavLink></span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              {errorMsg?.password && <p className="alert alert-danger">{errorMsg.password}</p>}
-              <button className="signin-button" onClick={handleSubmit}>
-                Signin
-              </button>
-              <br />
-              {JSON.stringify(inputValue)}
-            </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

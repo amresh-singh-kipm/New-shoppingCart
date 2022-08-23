@@ -1,6 +1,5 @@
   import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from '../Navbar';
 import Signin from '../../Pages/Signin';
 import Signup from '../../Pages/Signup';
 import Home from '../../Pages/Home';
@@ -14,12 +13,14 @@ import Privateroute from './Privateroute';
 import Footer from '../Footer';
 import UpdateCategory from '../../Pages/UpdateCategory';
 import Usememo from '../../Pages/Usememo';
+import Cart from '../../Pages/Cart';
+import NavScrollExample from '../Navbar';
 
   function PublicRouter() {
     return (
         <div>
             <Router>
-            <Navbar/>
+            <NavScrollExample/>
             <Routes>
               <Route exact path='/memo' element={<Usememo/>}/>
               <Route exact path="/" element={<Home/>} />
@@ -32,6 +33,7 @@ import Usememo from '../../Pages/Usememo';
               <Route exact path="/updatedata" element={<Privateroute><UpdateData/></Privateroute>} />
               <Route exact path="/updatecategory" element={<UpdateCategory/>}/>
               <Route exact path ="/managecategory" element={<ManageCategory/>}/>
+              <Route exact path="/cart" element = {<Cart/>}/>
             </Routes>
             <Footer/>
           </Router>

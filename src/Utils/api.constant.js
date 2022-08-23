@@ -31,7 +31,7 @@ export const config ={
         createProduct:"/product/create",
         deleteProduct:"/product",
         updateProduct:"/product",
-        getPhoto:"/product/photo"
+        getPhoto:"/product/photo",
     },
     category:{
         getCategory:"/categories",

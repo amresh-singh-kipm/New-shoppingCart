@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import { BrowserRouter as Router, Routes } from "react-router-dom";
 import PublicRouter from "./Components/Routers/PublicRouter";
 import { AppContext } from "./Components/Context/AppContext";
+import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   const [isSubmit, setIsSubmit] = useState(false);
   const id = localStorage.getItem("userId")
