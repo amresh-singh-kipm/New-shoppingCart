@@ -4,11 +4,40 @@ import { AppContext } from "../Components/Context/AppContext";
 import ImageHelper from "../Helpers/ImageHelper";
 
 import SliderSection from "./SliderSection";
+import { addItemToCart, cartItem } from "../Helpers/CartHelper";
 function Home() {
   const dataValue = useContext(AppContext);
-  const [cart, setCart] = useState([]);
 
+// const addToCart = (product) =>{
+//   localStorage.setItem("cartDetail",JSON.stringify(product));
+//   fetch("http://localhost:3000/cart",{
+//     method:'POST',
+//     headers:{
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//     },
+//     body:JSON.stringify(product)
+//   })
+//   .then((data)=>console.log(data))
+//   .catch((error)=>console.log(error))
+// };
+
+
+
+//   const onAdd = (productValue)=>{
+//     console.log(productValue)
+//     const exist = cart.find((x)=> x.id ===productValue.id);
+//     if(exist){
+//       const newCartItems = cart.map((x)=>
+//       x._id ===productValue._id?{...exist,stock:exist.stock+1}:x
+//       );
+//       setCart(newCartItems);
+//   }
+//     console.log("bknjbjbjbjbjbjbjbjbjbjb",exist)
+//   };
+// console.log("cartItem is:::", cart);
   useEffect(() => {
+    cartItem();
     getProducts()
       .then((data) => {
         dataValue.setProductValue(data);
@@ -39,8 +68,8 @@ function Home() {
                   </div>
                   <div className="option-container">
                     <div className="option">
-                      <button className="option1">Add To Cart</button>
-                      <button className="option2">Buy Now</button>
+                      <button className="option1"onClick={()=>addItemToCart(item._id)}>Add To Cart</button>
+                      <button className="option2" >Buy Now</button>
                     </div>
                     </div>
                 </div>

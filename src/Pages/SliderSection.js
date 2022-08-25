@@ -8,9 +8,9 @@ function SliderSection() {
   return (
     <>
       <div className="slider-section">
-        <div className="slider-image">
+        {/* <div className="slider-image">
           <img src="/assets/images/slider-bg.jpg" width="100%"  />
-        </div>
+        </div> */}
         <div className="slider-content">
           <div className="container">
             <div className="row">

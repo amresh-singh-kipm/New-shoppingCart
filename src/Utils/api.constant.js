@@ -39,5 +39,4 @@ export const config ={
         deleteCategory:"/category",
         updateCategory:"/category",
     }
-    
 }
