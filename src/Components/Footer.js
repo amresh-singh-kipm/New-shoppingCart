@@ -16,7 +16,7 @@ function Footer() {
                      <h1><ImAmazon/> <strong>Amazon</strong></h1>
                      <h5><strong>ADDRESS:</strong>28 White tower, Street Name New York City, USA</h5>
                     <h5><strong>TELEPHONE:</strong>+91 987 654 3210</h5>
-                    <h5><strong>EMAIL:</strong>yourmain@gmail.com </h5>
+                    <h5><strong>EMAIL:</strong>amazon@gmail.com </h5>
                     </div>
                     </div>
                     <div className='col-sm-12 col-md-6 col-lg-3'>

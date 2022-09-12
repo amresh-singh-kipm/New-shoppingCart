@@ -84,7 +84,7 @@ function Signup() {
           <div className="row">
             <div className="col-lg-5">
               <div className="form-logo-section">
-                <img src="/assets/images/Watch.jpeg" width="100px" />
+                <img src="/assets/images/shopify.png" width="300px" />
                 <div className="form-description-section">
                   <p>welcome to SignUp page</p>
                 </div>

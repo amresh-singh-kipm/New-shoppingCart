@@ -48,7 +48,7 @@ function Home() {
   //   localStorage.setItem("name", JSON.stringify(cart));
   // }, [cart]);
   return (
-    <div className="fluid-container">
+    <React.Fragment>
       <SliderSection />
       <div className="container">
         <h1 className="text-center mb-5">
@@ -77,7 +77,6 @@ function Home() {
             );
           })}
         </div>
-      </div>
       {/* <div className="row">
         {dataValue?.productValue?.map((item, index) => {
           return (
@@ -135,6 +134,7 @@ function Home() {
       </Carousel.Item>
     </Carousel> */}
     </div>
+    </React.Fragment>
   );
 }
 

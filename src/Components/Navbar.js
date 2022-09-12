@@ -15,8 +15,19 @@ function NavScrollExample() {
   let isLogin = useContext(AppContext);
   let handleLogout = () =>{
     isLogin?.setIsSubmit(false);
-    localStorage.clear();
+    let removeKey = ["token","userId"];
+    removeKey.forEach(k =>
+      localStorage.removeItem(k))
+  
+    // localStorage.removeItem("userId","token");
+    // localStorage.removeItem()
   }
+  let userId = localStorage.getItem("userId");
+  let cartLength = JSON.parse(localStorage.getItem(`cart/${userId}`));  
+  console.log(cartLength)
+  let length = cartLength?.length;
+  
+  console.log("length is :::",length)
   return (
        <Navbar bg="none" expand="lg">
       <Container >
@@ -60,6 +71,7 @@ function NavScrollExample() {
           <div className="icon-section">
               <NavLink to="/cart" className="icon-item">
             <FaShoppingBag/>
+            <span>{length}</span>
             </NavLink>
             <NavLink to="#" className="icon-item">
             <BsSearch/>

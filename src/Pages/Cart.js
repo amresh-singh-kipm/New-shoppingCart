@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 // import { cartItem, removeItem, updateQuantity } from "../Helpers/CartHelper";
+import { IoMdRemoveCircle } from "react-icons/io";
+import { GrAddCircle } from "react-icons/gr";
+import Checkout from "./Checkout";
+import ImageHelper from "../Helpers/ImageHelper";
 
 function Cart() {
-  let dataCart = JSON.parse(localStorage.getItem("cart"));
-  const [dataForCart, setDataForCart] = useState(dataCart);
+  let userId = localStorage.getItem("userId");
+  let products = JSON.parse(localStorage.getItem("products"));
+  let dataItem = JSON.parse(localStorage.getItem(`cart/${userId}`));
+  const [dataForCart, setDataForCart] = useState(dataItem);
 
   const cartItem = () => {
     fetch("https://merncomm.herokuapp.com/api/products")
@@ -15,9 +21,8 @@ function Cart() {
         }
       });
   };
-  let products = JSON.parse(localStorage.getItem("products"));
-  let cartData = JSON.parse(localStorage.getItem("cart"));
 
+  let cartData = JSON.parse(localStorage.getItem(`cart/${userId}`));
   const addItemToCart = (productId) => {
     let product = products.find((product) => product._id === productId);
 
@@ -34,8 +39,8 @@ function Cart() {
   };
 
   const removeItem = (productId) => {
-    let remove = cartData.filter((remove) => remove._id !== productId);
-    localStorage.setItem("cart", JSON.stringify(remove));
+    let remove = cartData?.filter((remove) => remove?._id !== productId);
+    localStorage.setItem(`cart/${userId}`, JSON.stringify(remove));
     setDataForCart(remove);
   };
 
@@ -49,26 +54,26 @@ function Cart() {
     //         })
     //     }
     // }
-    let quantity = cartData.filter((product) => product._id === productId);
+    let quantity = cartData?.filter((product) => product?._id === productId);
     if (quantity) {
-      quantity.map((item) => {
+      quantity?.map((item) => {
         return (item.stock = item.stock + 1);
       });
     }
-    localStorage.setItem("cart", JSON.stringify(cartData));
+    localStorage.setItem(`cart/${userId}`, JSON.stringify(cartData));
     setDataForCart(cartData);
   };
 
   const onDecreasement = (productId) => {
-    let quantity = cartData.filter((product) => product._id === productId);
+    let quantity = cartData?.filter((product) => product?._id === productId);
     if (quantity) {
-      quantity.map((item) => {
-        if (item.stock > 0) {
+      quantity?.map((item) => {
+        if (item.stock > 1) {
           return (item.stock = item.stock - 1);
         }
       });
     }
-    localStorage.setItem("cart", JSON.stringify(cartData));
+    localStorage.setItem(`cart/${userId}`, JSON.stringify(cartData));
     setDataForCart(cartData);
   };
 
@@ -96,50 +101,117 @@ function Cart() {
   //     showData()
   //   }
   return (
-    <div className="fluid-container">
-      <div className="row">
+    <>
+    {dataForCart ? ( <div className="cart-section">
+      <h1 style={{ textAlign: "center", color: "#f7444e", marginTop: "10px", marginBottom:"10px" }}>
+        My Cart
+      </h1>
+    
+
+      <section className="main-cart-section">
+
+        <div className="cart-items">
+          <div className="cart-items-container">
+              {dataForCart&& dataForCart.map((item,index) => {
+                return (
+                  <div key={index}>
+                  <div className="items-info " >
+                  <div className="product-img">
+                    <ImageHelper product={item} />
+                  </div>
+          
+                  <div className="title">
+                    <h2>{item.name}</h2>
+                    <p>{item.description}</p>
+                  </div>
+          
+                  <div className="add-minus-quantity">
+                    <i className="fas fa-minus minus" onClick={() => onDecreasement(item._id)}></i>
+                    <input type="text" placeholder={item.stock} disabled />
+                    <i className="fas fa-plus add" onClick={() => updateQuantity(item._id)}></i>
+                  </div>
+          
+                  <div className="price">
+                    <h3>{item.price*item.stock}₹</h3>
+                  </div>
+          
+                  <div className="remove-item">
+                    <i
+                      className="fas fa-trash-alt remove"
+                      onClick={() => removeItem(item._id)}></i>
+                  </div>
+                </div>
+                  <hr/>
+                  </div>
+                );
+              })}
+          
+          </div>
+        </div>
+
+        <div className="card-total">
+          <h3>
+            Cart Total : <span>{
+              dataForCart?.reduce((total,data)=>total+data.price*data.stock,0)
+              }₹</span>
+          </h3>
+          <button className="cart-checkout">checkout</button>
+          <button className="clear-cart" >
+            Clear Cart
+          </button>
+        </div>
+      </section>
+    <Checkout/>
+     
+    </div>):(
+      <div className="cart-empty">
+        <h1 style={{color:"red",textAlign:"center",margin:"10px"}}>Cart is empty</h1>
+      </div>
+    )}
+   
+    </>
+  );
+}
+
+export default Cart;
+
+{
+  /* <div className="row">
         {dataForCart &&
-          dataForCart.map((item, index) => {
+          dataForCart?.map((item, index) => {
             return (
               <div key={index}>
                 {item._id}
                 {item.name}
                 {item.stock}
+                {item.price*item.stock}
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-primary m-2"
                   onClick={() => removeItem(item._id)}
                 >
                   Remove Item
                 </button>
                 <button
-                  className="btn btn-danger"
+                  className="btn btn-danger m-2"
                   onClick={() => onDecreasement(item._id)}
                 >
-                  Decrease quantity
+                 <IoMdRemoveCircle/>
                 </button>
                 <button
-                  className="btn btn-danger"
+                  className="btn btn-danger m-2"
                   onClick={() => updateQuantity(item._id)}
                 >
-                  Update quantity
+                  <GrAddCircle/>
                 </button>
               </div>
             );
           })}
       </div>
-    </div>
-    // <div className='fluid-container'>
-    //     <h1>lorem34</h1>
-    // {cartItem && cartItem.map((item,index)=>{
-    //     return(
-    //         <div className='data'id={index}>
-    //             {item.id}
-    //             {item.name}
-    //         </div>
-    //     )
-    // })}
-    // </div>
-  );
+      {<span>
+        Total amount is ::
+        {dataForCart?.reduce(
+          (total,data)=>total + data.price*data.stock,0)}
+        </span>
+        }
+        <Checkout/> */
 }
-
-export default Cart;

@@ -81,7 +81,7 @@ function Signin() {
           <div className="row">
             <div className="col-sm-6 col-md-5 col-lg-5">
               <div className="form-logo-section">
-                <img src="/assets/images/Watch.jpeg" width="100px" />
+                <img src="/assets/images/shopify.png" width="300px"/>
                 <div className="form-description-section">
                   <p>welcome to login page</p>
                 </div>

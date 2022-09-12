@@ -1,39 +1,38 @@
-import { getProducts } from "./ProductAuthApi/ProductApiHelper"
-
+let userId = localStorage.getItem("userId")
 export const cartItem = () =>{
     fetch("https://merncomm.herokuapp.com/api/products")
 .then((data)=> data.json())
 .then(function(resp){
     localStorage.setItem("products",JSON.stringify(resp))
-    if(!localStorage.getItem("cart")){
-        localStorage.setItem("cart","[]");
+    if(!localStorage.getItem(`cart/${userId}`)){
+        localStorage.setItem(`cart/${userId}`,"[]");
     }
 })
 }
 let products = JSON.parse(localStorage.getItem("products"))
-let cartData = JSON.parse(localStorage.getItem("cart"))
+let cartData = JSON.parse(localStorage.getItem(`cart/${userId}`))
 
 export const addItemToCart = (productId) =>{
   
     let product = products.find((product)=>product._id===productId);
    
-    if(cartData?.length===0){
+    if(cartData.length===0){
         cartData.push(product);
     }
     else{
-        let res = cartData?.find((productsss)=>productsss._id===productId);
+        let res = cartData.find((productsss)=>productsss._id===productId);
         if(res===undefined){
             cartData.push(product)
         }
     }
-    localStorage.setItem("cart",JSON.stringify(cartData))
+    localStorage.setItem(`cart/${userId}`,JSON.stringify(cartData))
     // console.log("product is :::",cartData)
 
 }
 
 export const removeItem = (productId) =>{
 let remove = cartData.filter((remove)=>remove._id !==productId);
-localStorage.setItem("cart",JSON.stringify(remove));
+localStorage.setItem(`cart/${userId}`,JSON.stringify(remove));
 }
 
 export const updateQuantity = (productId) =>{
@@ -54,7 +53,7 @@ export const updateQuantity = (productId) =>{
             )
          })
         }
-        localStorage.setItem("cart",JSON.stringify(cartData))
+        localStorage.setItem(`cart/${userId}`,JSON.stringify(cartData))
 }
 
  // let product = products.find(function(product){
