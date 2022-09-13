@@ -1,5 +1,5 @@
 import React from 'react'
-import {ImAmazon} from 'react-icons/im'
+import {SiShopify} from 'react-icons/si'
 import {CgMenuRound} from 'react-icons/cg'
 import {VscAccount} from 'react-icons/vsc'
 import {FcNews} from 'react-icons/fc'
@@ -13,10 +13,10 @@ function Footer() {
                 <div className='row'>
                     <div className='col-sm-12 col-md-6 col-lg-3'>
                     <div className='footer-details'>
-                     <h1><ImAmazon/> <strong>Amazon</strong></h1>
+                     <h1><SiShopify/> <strong>Shopify</strong></h1>
                      <h5><strong>ADDRESS:</strong>28 White tower, Street Name New York City, USA</h5>
                     <h5><strong>TELEPHONE:</strong>+91 987 654 3210</h5>
-                    <h5><strong>EMAIL:</strong>amazon@gmail.com </h5>
+                    <h5><strong>EMAIL:</strong>shopify@gmail.com </h5>
                     </div>
                     </div>
                     <div className='col-sm-12 col-md-6 col-lg-3'>

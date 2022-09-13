@@ -24,10 +24,8 @@ function NavScrollExample() {
   }
   let userId = localStorage.getItem("userId");
   let cartLength = JSON.parse(localStorage.getItem(`cart/${userId}`));  
-  console.log(cartLength)
   let length = cartLength?.length;
   
-  console.log("length is :::",length)
   return (
        <Navbar bg="none" expand="lg">
       <Container >

@@ -15,6 +15,7 @@ import UpdateCategory from '../../Pages/UpdateCategory';
 import Usememo from '../../Pages/Usememo';
 import Cart from '../../Pages/Cart';
 import NavScrollExample from '../Navbar';
+import Checkout from '../../Pages/Checkout';
 
   function PublicRouter() {
     return (
@@ -34,6 +35,7 @@ import NavScrollExample from '../Navbar';
               <Route exact path="/updatecategory" element={<UpdateCategory/>}/>
               <Route exact path ="/managecategory" element={<ManageCategory/>}/>
               <Route exact path="/cart" element = {<Cart/>}/>
+              <Route exact path="/checkout" element={<Checkout/>}/>
             </Routes>
             <Footer/>
           </Router>

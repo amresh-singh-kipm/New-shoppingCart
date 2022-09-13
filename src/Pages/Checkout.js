@@ -4,39 +4,45 @@ import { useState } from "react";
 import StripeCheckout from "react-stripe-checkout";
 
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 // import "react-toastify/dist/ReactToastify.css";
 
-function Checkout() {
-
+function Checkout(props) {
+let cartAmount = props.props;
+let navigate = useNavigate();
 //   toast.configure()
 const userId = localStorage.getItem("userId");
 const dataForCheckout = JSON.parse(localStorage.getItem(`cart/${userId}`));
-  
+  const userID = localStorage.getItem("userId")
 
 const [product,setProduct] = useState(dataForCheckout);
-console.log("product is",product)
-  async function handleToken(token, addresses) {
-    const response = await axios.post(
-      "http://localhost:8080/checkout",
-      { token, product }
-    );
-
-    console.log(response.status)
-
-    if (response.status === 200) {
-      toast("Success! Check email for details", { type: "success" });
-    } else {
-      toast("Something went wrong", { type: "error" });
-    }
+   function handleToken(token, addresses) {
+    fetch(`https://merncomm.herokuapp.com/api/order/create/${userID}`,{
+      method:'POST',
+      headers:{
+        Accpet:"application/json",
+        'Content-Type':"application/json"
+      },
+      body:JSON.stringify(product)
+    })   
+    .then((resp)=>{
+      if(resp.status===200){
+        navigate('/')
+      }
+      else{
+        navigate('/cart')
+      }
+    })
+    .catch((error)=>console.log(error))
   }
 
   return (
     <div className="App">
       <div className="container">
-        <br />
+        {/* <br />
         <br />
         <h1 className="text-center">Stripe Checkout</h1>
         <br />
@@ -64,14 +70,14 @@ console.log("product is",product)
             </div>
           )
         }) 
-      }
+      } */}
       <div className="form-group container">
           <StripeCheckout
             className="center"
             stripeKey="pk_test_51Lc6iESB0s4MkNrXxKsyvYwLFYySeSiXwFONR7f5UKVpOS0wsZ2s9q7fS86iyXpIQ4hczQU8dlRf6jFRMp74MdIG00DXCbJK3R"
             token={handleToken}
-            amount={product}
-            name={product}
+            amount={cartAmount*100}
+            // name={product}
             billingAddress
             shippingAddress
           />

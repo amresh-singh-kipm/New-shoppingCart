@@ -26,7 +26,6 @@ function ManageCategory() {
       .then((resp) => setIsDelete(!isDelete))
       .catch((error) => console.log(error));
   };
-  console.log("first", categories);
   return (
     <div className="fluid-container">
       <div className="container">

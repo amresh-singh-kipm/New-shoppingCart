@@ -15,10 +15,11 @@ let id = search.get("id")
     description: "",
     price: "",
     stock: "",
+    photo:null,
   };
 
   const [inputValue, setInputValue] = useState(defaultValue);
-  const [categories, setCategories] = useState(null);
+  const [categories, setCategories] = useState("");
   const [errormsg, setErrorMsg] = useState(defaultValue);
   const [image, setImage] = useState(null);
 
@@ -37,6 +38,8 @@ let id = search.get("id")
         description:data?.description ?? "",
         price: data?.price ?? "",
         stock:data.stock?? "",
+        photo:data.photo?? image,
+
       })
     })
    }
@@ -46,7 +49,6 @@ let id = search.get("id")
   let handleImage = (e) => {
     setImage(e.target.files[0]);
   };
-  console.log("Photo", image);
   let validation = () => {
     let message = { ...errormsg };
     if (!inputValue.name.trim()) {
@@ -78,7 +80,6 @@ let id = search.get("id")
   };
 
   let formData = new FormData();
-  console.log("formData is :", formData);
   let handleSubmit = (e) => {
     e.preventDefault();
     if(id){

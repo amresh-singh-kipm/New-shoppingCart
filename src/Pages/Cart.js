@@ -4,13 +4,16 @@ import { IoMdRemoveCircle } from "react-icons/io";
 import { GrAddCircle } from "react-icons/gr";
 import Checkout from "./Checkout";
 import ImageHelper from "../Helpers/ImageHelper";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
   let userId = localStorage.getItem("userId");
   let products = JSON.parse(localStorage.getItem("products"));
   let dataItem = JSON.parse(localStorage.getItem(`cart/${userId}`));
   const [dataForCart, setDataForCart] = useState(dataItem);
-
+  const [isLogged, setIsLogged] = useState(true);
+  const [cartAmount, setCartAmount] = useState("");
+  const navigate = useNavigate();
   const cartItem = () => {
     fetch("https://merncomm.herokuapp.com/api/products")
       .then((data) => data.json())
@@ -44,7 +47,7 @@ function Cart() {
     setDataForCart(remove);
   };
 
-  const updateQuantity = (productId) => {
+  const onIcreasment = (productId) => {
     // for(let product of cartData){
     //     if(product._id ===productId){
     //         cartData?.map((item)=>{
@@ -100,75 +103,99 @@ function Cart() {
   //     removeItem(productId)
   //     showData()
   //   }
+  useEffect(() => {
+    if (dataForCart.length === 0) {
+      setIsLogged(false);
+      return;
+    }
+    let amount = dataForCart.reduce(
+      (total, data) => total + data.price * data.stock,0);
+    setCartAmount(amount);
+  }, [dataForCart]);
+
   return (
     <>
-    {dataForCart ? ( <div className="cart-section">
-      <h1 style={{ textAlign: "center", color: "#f7444e", marginTop: "10px", marginBottom:"10px" }}>
-        My Cart
-      </h1>
-    
+      {isLogged ? (
+        <div className="cart-section">
+          <h1
+            style={{
+              textAlign: "center",
+              color: "#f7444e",
+              marginTop: "10px",
+              marginBottom: "10px",
+            }}
+          >
+            My Cart
+          </h1>
 
-      <section className="main-cart-section">
+          <section className="main-cart-section">
+            <div className="cart-items">
+              <div className="cart-items-container">
+                {dataForCart &&
+                  dataForCart.map((item, index) => {
+                    return (
+                      <div key={index}>
+                        <div className="items-info ">
+                          <div className="product-img">
+                            <ImageHelper product={item} />
+                          </div>
 
-        <div className="cart-items">
-          <div className="cart-items-container">
-              {dataForCart&& dataForCart.map((item,index) => {
-                return (
-                  <div key={index}>
-                  <div className="items-info " >
-                  <div className="product-img">
-                    <ImageHelper product={item} />
-                  </div>
-          
-                  <div className="title">
-                    <h2>{item.name}</h2>
-                    <p>{item.description}</p>
-                  </div>
-          
-                  <div className="add-minus-quantity">
-                    <i className="fas fa-minus minus" onClick={() => onDecreasement(item._id)}></i>
-                    <input type="text" placeholder={item.stock} disabled />
-                    <i className="fas fa-plus add" onClick={() => updateQuantity(item._id)}></i>
-                  </div>
-          
-                  <div className="price">
-                    <h3>{item.price*item.stock}₹</h3>
-                  </div>
-          
-                  <div className="remove-item">
-                    <i
-                      className="fas fa-trash-alt remove"
-                      onClick={() => removeItem(item._id)}></i>
-                  </div>
-                </div>
-                  <hr/>
-                  </div>
-                );
-              })}
-          
-          </div>
+                          <div className="title">
+                            <h2>{item.name}</h2>
+                            <p>{item.description}</p>
+                          </div>
+
+                          <div className="add-minus-quantity">
+                            <i
+                              className="fas fa-minus minus"
+                              onClick={() => onDecreasement(item._id)}
+                            ></i>
+                            <input
+                              type="text"
+                              placeholder={item.stock}
+                              disabled
+                            />
+                            <i
+                              className="fas fa-plus add"
+                              onClick={() => onIcreasment(item._id)}
+                            ></i>
+                          </div>
+
+                          <div className="price">
+                            <h3>$ {item.price * item.stock}</h3>
+                          </div>
+
+                          <div className="remove-item">
+                            <i
+                              className="fas fa-trash-alt remove"
+                              onClick={() => removeItem(item._id)}
+                            ></i>
+                          </div>
+                        </div>
+                        <hr />
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+
+            <div className="card-total">
+              <h3>
+                Cart Total : <span>$ {cartAmount}</span>
+              </h3>
+              <button className="cart-checkout" onClick={()=>navigate(`/checkout`)}>checkout</button>
+              <button className="clear-cart">Clear Cart</button>
+            </div>
+          </section>
+          <Checkout props={cartAmount} />
         </div>
-
-        <div className="card-total">
-          <h3>
-            Cart Total : <span>{
-              dataForCart?.reduce((total,data)=>total+data.price*data.stock,0)
-              }₹</span>
-          </h3>
-          <button className="cart-checkout">checkout</button>
-          <button className="clear-cart" >
-            Clear Cart
-          </button>
+      ) : (
+        <div className="cart-empty">
+          <h1 style={{ color: "red", textAlign: "center", margin: "10px" }}>
+            Cart Is Empty
+          </h1>
         </div>
-      </section>
-    <Checkout/>
-     
-    </div>):(
-      <div className="cart-empty">
-        <h1 style={{color:"red",textAlign:"center",margin:"10px"}}>Cart is empty</h1>
-      </div>
-    )}
-   
+      )}
     </>
   );
 }

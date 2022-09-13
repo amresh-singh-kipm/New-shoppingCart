@@ -6,8 +6,17 @@ import {
   getProducts,
 } from "../Helpers/ProductAuthApi/ProductApiHelper";
 import { useNavigate } from "react-router-dom";
+import { getCategory } from "../Helpers/CategoryAuthApi/CategoryAuthApi";
 
 function Manageproduct() {
+  const [categories, setCategories] = useState();
+
+  let get = () => {
+    getCategory()
+      .then((data) => setCategories(data))
+      .catch((error) => console.log(error));
+  };
+  // console.log("categories",categories)
   let navigate = useNavigate();
   const dataValue = useContext(AppContext);
   let productData = () => {
@@ -19,6 +28,7 @@ function Manageproduct() {
 
   useEffect(() => {
     productData();
+    get();
   }, [isDelete]);
   let handleDelete = (_id) => {
     productData();
