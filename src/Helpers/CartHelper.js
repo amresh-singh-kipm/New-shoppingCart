@@ -1,6 +1,6 @@
 let userId = localStorage.getItem("userId")
 export const cartItem = () =>{
-    fetch("https://merncomm.herokuapp.com/api/products")
+    fetch("http://localhost:8000/api/products")
 .then((data)=> data.json())
 .then(function(resp){
     localStorage.setItem("products",JSON.stringify(resp))

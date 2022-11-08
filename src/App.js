@@ -9,7 +9,7 @@ function App() {
   const [productValue, setProductValue] = useState();
   let token = localStorage.getItem("token")
   useEffect(() => {
-const SERVER = "http://localhost:8080";
+// const SERVER = "http://localhost:8080";
 
      if(token){
       setIsSubmit(true)

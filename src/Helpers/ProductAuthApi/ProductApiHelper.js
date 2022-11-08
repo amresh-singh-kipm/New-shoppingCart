@@ -31,11 +31,11 @@ export const getProducts = () => {
       .then((resp) =>resp.json())
       .catch((err) => console.log(err));
   };
-  export const updateProduct = (id,name) => {
+  export const updateProduct = (id,data) => {
     return fetch(`${config.host}${config.products.updateProduct}/${id}/${getUserId()}`,{
       method:'PUT',
       headers:config.headersWithFormData,
-      body:JSON.stringify(name)
+      body:JSON.stringify(data)
     })
     .then((resp)=>console.log(resp))
     .catch((error)=>console.log(error))

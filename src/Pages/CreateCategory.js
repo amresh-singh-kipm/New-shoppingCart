@@ -19,11 +19,7 @@ function CreateCategory() {
 
   useEffect(() => {
     if (id) {
-      updateCategory(id).then((data) => {
-        setInputValue({
-          name: data?.name ?? "",
-        });
-      });
+      updateCategory(id).then((data) => console.log("data su s",data));
     }
   }, []);
 

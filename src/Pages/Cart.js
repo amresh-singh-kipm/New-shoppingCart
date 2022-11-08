@@ -133,6 +133,7 @@ function Cart() {
               <div className="cart-items-container">
                 {dataForCart &&
                   dataForCart.map((item, index) => {
+                    <Checkout name={item}/>
                     return (
                       <div key={index}>
                         <div className="items-info ">
@@ -172,7 +173,7 @@ function Cart() {
                             ></i>
                           </div>
                         </div>
-                        <hr />
+                        <hr/>
                       </div>
                     );
                   })}

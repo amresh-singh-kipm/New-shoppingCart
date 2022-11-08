@@ -10,17 +10,17 @@ import { useNavigate } from "react-router-dom";
 
 // import "react-toastify/dist/ReactToastify.css";
 
-function Checkout(props) {
-let cartAmount = props.props;
+function Checkout({props,name}) {
+let cartAmount = props;
 let navigate = useNavigate();
 //   toast.configure()
 const userId = localStorage.getItem("userId");
 const dataForCheckout = JSON.parse(localStorage.getItem(`cart/${userId}`));
-  const userID = localStorage.getItem("userId")
 
 const [product,setProduct] = useState(dataForCheckout);
    function handleToken(token, addresses) {
-    fetch(`https://merncomm.herokuapp.com/api/order/create/${userID}`,{
+    // fetch(`https://merncomm.herokuapp.com/api/order/create/${userId}`,{
+    fetch(`http://localhost:8000/api/order/create/${userId}`,{
       method:'POST',
       headers:{
         Accpet:"application/json",

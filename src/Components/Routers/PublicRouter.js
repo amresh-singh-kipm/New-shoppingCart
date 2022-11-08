@@ -12,7 +12,6 @@ import UpdateData from '../../Pages/UpdateData';
 import Privateroute from './Privateroute';
 import Footer from '../Footer';
 import UpdateCategory from '../../Pages/UpdateCategory';
-import Usememo from '../../Pages/Usememo';
 import Cart from '../../Pages/Cart';
 import NavScrollExample from '../Navbar';
 import Checkout from '../../Pages/Checkout';
@@ -23,7 +22,6 @@ import Checkout from '../../Pages/Checkout';
             <Router>
             <NavScrollExample/>
             <Routes>
-              <Route exact path='/memo' element={<Usememo/>}/>
               <Route exact path="/" element={<Home/>} />
               <Route exact path="/signup" element={<Signup/>} />
               <Route exact path="/signin" element={<Signin/>} />

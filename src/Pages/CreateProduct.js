@@ -114,7 +114,6 @@ let id = search.get("id")
     getCategory()
       .then((data) => setCategories(data))
       .catch((err) => console.log(err));
-    console.log(categories);
   }, []);
 
   return (

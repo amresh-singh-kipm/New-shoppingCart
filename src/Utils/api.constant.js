@@ -5,7 +5,9 @@ export const getToken = () =>{
     return token;
 }
 
-const BASE_URL = 'https://merncomm.herokuapp.com/api'
+// const BASE_URL = 'https://merncomm.herokuapp.com/api'
+
+const BASE_URL = 'http://localhost:8000/api'
 
 export const config ={
     host: BASE_URL,
