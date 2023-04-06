@@ -49,6 +49,7 @@ let id = search.get("id")
   let handleImage = (e) => {
     setImage(e.target.files[0]);
   };
+  
   let validation = () => {
     let message = { ...errormsg };
     if (!inputValue.name.trim()) {

@@ -40,6 +40,7 @@ export const getProducts = () => {
     .then((resp)=>console.log(resp))
     .catch((error)=>console.log(error))
   };
+  
 
       // let url1 = `${config.host}${config.products.updateProduct}/${id}/${userId}`;
       // let config2 = {

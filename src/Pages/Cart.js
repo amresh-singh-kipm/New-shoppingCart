@@ -188,7 +188,7 @@ function Cart() {
               <button className="clear-cart">Clear Cart</button>
             </div>
           </section>
-          <Checkout props={cartAmount} />
+          {/* <Checkout props={cartAmount} /> */}
         </div>
       ) : (
         <div className="cart-empty">
